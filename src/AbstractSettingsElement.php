@@ -77,4 +77,16 @@ abstract class AbstractSettingsElement extends AbstractValidatorBase
         return $this->_getKey();
     }
 
+    /**
+     * Creates an exception for when the renderer fails to render.
+     *
+     * @since [*next-version*]
+     *
+     * @param string     $message The exception message.
+     * @param int|string $code    The exception error code.
+     * @param Exception  $inner   The previous exception in the chain.
+     *
+     * @return CouldNotRenderExceptionInterface
+     */
+    abstract protected function _createCouldNotRenderException($message, $code, Exception $inner);
 }
