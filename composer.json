@@ -13,13 +13,15 @@
     "prefer-stable": true,
     "require": {
         "php": "^5.4 | ^7.0",
-        "dhii/data-key-value-aware-trait": "dev-task/initial-traits",
         "rebelcode/wp-settings-interface": "dev-task/initial-interfaces",
         "rebelcode/wp-nonce-interface": "dev-task/initial-interfaces",
+        "dhii/data-key-value-aware-trait": "dev-task/initial-traits",
+        "dhii/output-renderer-interface": "dev-task/bring-up-to-dhii-standards",
         "dhii/validation-base": "^0.1.0",
         "dhii/data-container-interface": "dev-release/0.1",
         "dhii/i18n-helper-base": "dev-develop",
-        "dhii/i18n-interface": "^0.2.0"
+        "dhii/i18n-interface": "^0.2.0",
+        "dhii/human-readable-helper-base": "dev-task/initial-classes"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.8",
@@ -57,6 +59,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/RebelCode/wp-nonce-interface"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/Dhii/human-readable-helper-base"
         }
     ]
 }
