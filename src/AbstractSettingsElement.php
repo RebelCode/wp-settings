@@ -59,7 +59,7 @@ abstract class AbstractSettingsElement extends AbstractValidatorBase
         }
 
         if ($context instanceof Stringable) {
-            return (string)$context;
+            return (string) $context;
         }
 
         return $context;

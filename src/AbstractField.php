@@ -37,9 +37,9 @@ abstract class AbstractField extends AbstractSettingsElement
      *
      * @param mixed|null $context The rendering context; the value to render for this settings field.
      *
-     * @return string|Stringable
-     *
      * @throws CouldNotRenderExceptionInterface If the field failed to render.
+     *
+     * @return string|Stringable
      */
     protected function _render($context = null)
     {
@@ -103,10 +103,10 @@ abstract class AbstractField extends AbstractSettingsElement
      *
      * @param mixed|null $value The value to render for this settings field.
      *
-     * @return string|Stringable
-     *
      * @throws CouldNotRenderExceptionInterface If the field failed to render.
-     * @throws RendererExceptionInterface If the field failed to render.
+     * @throws RendererExceptionInterface       If the field failed to render.
+     *
+     * @return string|Stringable
      */
     abstract protected function _renderField($value);
 }
