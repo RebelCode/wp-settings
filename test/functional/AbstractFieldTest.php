@@ -2,7 +2,7 @@
 
 namespace RebelCode\WordPress\Admin\Settings\FuncTest;
 
-use Dhii\Output\Exception\CouldNotRenderExceptionInterface;
+use Exception;
 use RebelCode\WordPress\Admin\Settings\AbstractField;
 use Xpmock\TestCase;
 
@@ -32,33 +32,13 @@ class AbstractFieldTest extends TestCase
      */
     public function createInstance($render = '', $errors = [])
     {
+        $me   = $this;
         $mock = $this->mock(static::TEST_SUBJECT_CLASSNAME)
                      ->_renderField($render)
-                     ->_createCouldNotRenderException()
-                     ->_getValidationErrors($errors);
-
-        $instance = $mock->new();
-        $instance->mock()
-                 ->_createCouldNotRenderException(
-                     $this->createCouldNotRenderException($instance)
-                 );
-
-        return $instance;
-    }
-
-    /**
-     * Creates a mock exception for failed rendering.
-     *
-     * @since [*next-version*]
-     *
-     * @param mixed $renderer The renderer.
-     *
-     * @return CouldNotRenderExceptionInterface
-     */
-    public function createCouldNotRenderException($renderer)
-    {
-        $mock = $this->mock('Dhii\Output\Exception\CouldNotRenderExceptionInterface')
-                     ->getRenderer($renderer);
+                     ->_getValidationErrors($errors)
+                     ->_createCouldNotRenderException(function() use ($me) {
+                         return new Exception();
+                     });
 
         return $mock->new();
     }
@@ -98,5 +78,23 @@ class AbstractFieldTest extends TestCase
         $this->assertContains($label, $rendered);
         $this->assertContains($desc, $rendered);
         $this->assertContains($field, $rendered);
+    }
+
+    /**
+     * Tests the render method with validation errors to ensure that an exception is thrown.
+     *
+     * @since [*next-version*]
+     */
+    public function testRenderFail()
+    {
+        $subject = $this->createInstance($field = '<p>rendered field</p>', [
+            'Some error',
+            'Because something always goes wrong'
+        ]);
+        $reflect = $this->reflect($subject);
+
+        $this->setExpectedException('\Exception');
+
+        $reflect->_render();
     }
 }
