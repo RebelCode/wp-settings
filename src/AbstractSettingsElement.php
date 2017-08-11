@@ -2,9 +2,15 @@
 
 namespace RebelCode\WordPress\Admin\Settings;
 
+use ArrayAccess;
+use Dhii\Data\Container\ContainerInterface;
 use Dhii\Data\KeyAwareTrait;
+use Dhii\Data\ValueAwareInterface;
+use Dhii\Output\Exception\CouldNotRenderExceptionInterface;
+use Dhii\Util\String\LabelAwareTrait;
 use Dhii\Util\String\StringableInterface as Stringable;
 use Dhii\Validation\AbstractValidatorBase;
+use Exception;
 
 /**
  * Abstract common functionality for a settings element.
@@ -20,40 +26,10 @@ abstract class AbstractSettingsElement extends AbstractValidatorBase
      */
     use KeyAwareTrait;
 
-    /**
-     * The label.
+    /*
+     * Provides the label property with getter and setter methods.
      *
      * @since [*next-version*]
-     *
-     * @var string|Stringable
      */
-    protected $label;
-
-    /**
-     * Retrieves the label for this settings element.
-     *
-     * @since [*next-version*]
-     *
-     * @return string|Stringable
-     */
-    protected function _getLabel()
-    {
-        return $this->label;
-    }
-
-    /**
-     * Sets the label for this settings element.
-     *
-     * @since [*next-version*]
-     *
-     * @param string|Stringable $label The label.
-     *
-     * @return $this
-     */
-    protected function _setLabel($label)
-    {
-        $this->label = $label;
-
-        return $this;
-    }
+    use LabelAwareTrait;
 }
