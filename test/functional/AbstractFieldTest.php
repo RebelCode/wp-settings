@@ -32,11 +32,10 @@ class AbstractFieldTest extends TestCase
      */
     public function createInstance($render = '', $errors = [])
     {
-        $me   = $this;
         $mock = $this->mock(static::TEST_SUBJECT_CLASSNAME)
                      ->_renderField($render)
                      ->_getValidationErrors($errors)
-                     ->_createCouldNotRenderException(function() use ($me) {
+                     ->_createCouldNotRenderException(function() {
                          return new Exception();
                      });
 
