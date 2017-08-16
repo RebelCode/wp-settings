@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dhii/data-container-interface.git",
-                "reference": "4dfb5c2da6607752dcc6d1152120517f706799f7"
+                "reference": "ba5b80cff362505aa116fa3c91c690ddc54030e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/data-container-interface/zipball/4dfb5c2da6607752dcc6d1152120517f706799f7",
-                "reference": "4dfb5c2da6607752dcc6d1152120517f706799f7",
+                "url": "https://api.github.com/repos/Dhii/data-container-interface/zipball/ba5b80cff362505aa116fa3c91c690ddc54030e6",
+                "reference": "ba5b80cff362505aa116fa3c91c690ddc54030e6",
                 "shasum": ""
             },
             "require": {
@@ -51,7 +51,7 @@
                 }
             ],
             "description": "Interfaces for working with data containers",
-            "time": "2017-08-07 09:38:12"
+            "time": "2017-08-12 16:00:20"
         },
         {
             "name": "dhii/data-hierarchy-interface",
