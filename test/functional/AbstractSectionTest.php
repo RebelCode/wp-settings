@@ -231,23 +231,19 @@ class AbstractSectionTest extends TestCase
     {
         $field1  = $this->createField('first', 'First field');
         $field2  = $this->createField('second', 'Second field');
-        $field3  = $this->createField('third', 'Third field');
         $ctxVal1 = 'some value for first field';
         $ctxVal2 = 'some value for second field';
-        $ctxVal3 = $this->mock('Psr\Container\NotFoundExceptionInterface')->new();
 
         $subject = $this->createInstance()
-            ->_getFields([$field1, $field2, $field3])
+            ->_getFields([$field1, $field2])
             ->new();
         $reflect = $this->reflect($subject);
 
         $context = $this->mock('Dhii\Data\Container\ContainerInterface')
             // Expect get() to be called first time with field 1 key and return the value
             ->get([$field1->getKey()], $ctxVal1, $this->at(0))
-            // Expect get() to be called first time with field 2 key and return the value
+            // Expect get() to be called second time with field 2 key and return the value
             ->get([$field2->getKey()], $ctxVal2, $this->at(1))
-            // Expect get() to be called first time with field 3 key and throw exception
-            ->get([$field3->getKey()], $ctxVal3, $this->at(2))
             ->has(true)
             ->new();
 
