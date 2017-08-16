@@ -2,7 +2,8 @@
 
 namespace RebelCode\WordPress\Admin\Settings\FuncTest;
 
-use RebelCode\WordPress\Admin\Settings\FieldInterface;
+use Exception;
+use ReflectionClass;
 use Xpmock\MockWriter;
 use Xpmock\TestCase;
 
@@ -25,12 +26,25 @@ class AbstractSectionTest extends TestCase
      *
      * @since [*next-version*]
      *
+     * @param string     $key
+     * @param string     $label
+     * @param array|null $fields The fields for this section.
+     *
      * @return MockWriter
      */
-    public function createInstance()
+    public function createInstance($key = '', $label = '', $fields = null)
     {
-        $mock = $this->mock(static::TEST_SUBJECT_CLASSNAME)
-                     ->_createCouldNotRenderException();
+        $_this = $this;
+        $mock  = $this->mock(static::TEST_SUBJECT_CLASSNAME)
+                      ->_getKey($key)
+                      ->_getLabel($label)
+                      ->_createCouldNotRenderException()
+                      ->_createValidationException()
+                      ->_createValidationFailedException();
+
+        if (is_array($fields)) {
+            $mock->_getFields($fields);
+        }
 
         return $mock;
     }
@@ -43,48 +57,18 @@ class AbstractSectionTest extends TestCase
      * @param string $key   The key of the field.
      * @param string $label The label of the field.
      *
-     * @return FieldInterface
+     * @return MockWriter
      */
     public function createField($key, $label)
     {
         $mock = $this->mock('RebelCode\WordPress\Admin\Settings\FieldInterface')
+                     ->getKey($key)
                      ->getLabel($label)
                      ->getDescription()
-                     ->getKey($key)
                      ->validate()
                      ->render();
 
-        return $mock->new();
-    }
-
-    /**
-     * Creates a context data container mock instance.
-     *
-     * @since [*next-version*]
-     *
-     * @param array $values The values.
-     *
-     * @return FieldInterface
-     */
-    public function createContext(array $values)
-    {
-        $mock = $this->mock('Dhii\Data\Container\ContainerInterface')
-                     ->has(
-                         function($key) use ($values) {
-                             return isset($values[$key]);
-                         }
-                     )
-                     ->get(
-                         function($key) use ($values) {
-                             if (isset($values[$key])) {
-                                 return $values[$key];
-                             }
-                             throw $this->mock('Psr\Container\NotFoundExceptionInterface')
-                                        ->new();
-                         }
-                     );
-
-        return $mock->new();
+        return $mock;
     }
 
     /**
@@ -94,8 +78,7 @@ class AbstractSectionTest extends TestCase
      */
     public function testCanBeCreated()
     {
-        $subject = $this->createInstance()
-                        ->new();
+        $subject = $this->createInstance()->new();
 
         $this->assertInstanceOf(
             static::TEST_SUBJECT_CLASSNAME,
@@ -111,79 +94,50 @@ class AbstractSectionTest extends TestCase
      */
     public function testSetFields()
     {
-        $mock = $this->getMockForAbstractClass(
-            static::TEST_SUBJECT_CLASSNAME,
-            [],
-            'AbstractSection',
-            false,
-            false,
-            true,
-            [
-                '_createCouldNotRenderException',
-                '_addField',
-            ],
-            false
-        );
+        $field1 = $this->createField('first', 'First field')->new();
+        $field2 = $this->createField('second', 'Second field')->new();
+        $fields = [$field1, $field2];
 
-        $field1 = $this->createField('first', 'First field');
-        $field2 = $this->createField('second', 'Second field');
+        $mock = $this->getMockBuilder(static::TEST_SUBJECT_CLASSNAME)
+                     ->setMethods(
+                         [
+                             '_addField',
+                             '_createValidationException',
+                             '_createValidationFailedException',
+                             '_createCouldNotRenderException',
+                         ]
+                     )
+                     ->getMock();
 
-        $mock
-            ->expects($this->exactly(2))
-            ->method('_addField')
-            ->withConsecutive([$field1], [$field2]);
+        $mock->expects($this->exactly(2))
+             ->method('_addField')
+             ->withConsecutive([$this->identicalTo($field1)], [$this->identicalTo($field2)]);
 
-        $this->reflect($mock)
-             ->_setFields([$field1, $field2]);
+        $reflect   = new ReflectionClass(static::TEST_SUBJECT_CLASSNAME);
+        $refMethod = $reflect->getMethod('_setFields');
+        $refMethod->setAccessible(true);
+
+        $refMethod->invokeArgs($mock, [$fields]);
     }
 
     /**
-     * Tests the field addition method to ensure that fields are added.
+     * Tests the field addition and getter methods to ensure that fields are added and retrieved correctly.
      *
      * @since [*next-version*]
      */
-    public function testAddField()
+    public function testGetAddField()
     {
-        $subject = $this->createInstance()
-                        ->new();
+        $subject = $this->createInstance()->new();
         $reflect = $this->reflect($subject);
 
-        $field1 = $this->createField('first', 'First field');
-        $field2 = $this->createField('second', 'Second field');
+        $field1 = $this->createField('first', 'First field')->new();
+        $field2 = $this->createField('second', 'Second field')->new();
 
         $reflect->_addField($field1);
-        $this->assertContains($field1, $reflect->fields, 'Field 1 was not added to the section.');
+        $this->assertContains($field1, $reflect->_getFields(), 'Field 1 was not added to the section.');
 
         $reflect->_addField($field2);
-        $this->assertContains($field2, $reflect->fields, 'Field 2 was not added to the section.');
-    }
-
-    /**
-     * Tests the fields getter method to ensure that the fields are correctly retrieved.
-     *
-     * @since [*next-version*]
-     */
-    public function testGetFields()
-    {
-        $subject = $this->createInstance()
-                        ->new();
-        $reflect = $this->reflect($subject);
-
-        $reflect->fields = [
-            $field1 = $this->createField('first', 'First field'),
-            $field2 = $this->createField('second', 'Second field'),
-        ];
-
-        $expected = [$field1, $field2];
-
-        $this->assertEquals(
-            $expected,
-            $reflect->_getFields(),
-            'Retrieved fields are incorrect.',
-            0.0,
-            10,
-            true
-        );
+        $this->assertContains($field2, $reflect->_getFields(), 'Field 2 was not added to the section.');
     }
 
     /**
@@ -194,26 +148,17 @@ class AbstractSectionTest extends TestCase
      */
     public function testRender()
     {
-        $mock   = $this->createInstance();
-        $key    = 'section-test-key';
-        $label  = 'Section Test Label';
-        $field1 = $this->createField('first', 'First field');
-        $field2 = $this->createField('second', 'Second field');
+        $field1 = $this->createField('first', 'First field')
+                       ->render($this->once())// Expect field 1 render method to be called
+                       ->new();
+        $field2 = $this->createField('second', 'Second field')
+                       ->render($this->once())// Expect field 2 render method to be called
+                       ->new();
 
-        // Expect field 1 render method to be called
-        $field1->mock()
-               ->render([], null, $this->once());
+        $key     = 'section-test-key';
+        $label   = 'Section Test Label';
+        $subject = $this->createInstance($key, $label, [$field1, $field2])->new();
 
-        // Expect field 2 render method to be called
-        $field2->mock()
-               ->render([], null, $this->once());
-
-        $mock
-            ->_getKey($key)
-            ->_getLabel($label)
-            ->_getFields([$field1, $field2]);
-
-        $subject  = $mock->new();
         $reflect  = $this->reflect($subject);
         $rendered = $reflect->_render();
 
@@ -229,32 +174,35 @@ class AbstractSectionTest extends TestCase
      */
     public function testRenderWithContext()
     {
-        $field1  = $this->createField('first', 'First field');
-        $field2  = $this->createField('second', 'Second field');
         $ctxVal1 = 'some value for first field';
         $ctxVal2 = 'some value for second field';
 
-        $subject = $this->createInstance()
-            ->_getFields([$field1, $field2])
-            ->new();
-        $reflect = $this->reflect($subject);
+        $field1 = $this->createField('first', 'First field')
+                       ->render([$ctxVal1], $this->anything(), $this->once())
+                       ->new();
+        $field2 = $this->createField('second', 'Second field')
+                       ->render([$ctxVal2], $this->anything(), $this->once())
+                       ->new();
 
-        $context = $this->mock('Dhii\Data\Container\ContainerInterface')
-            // Expect get() to be called first time with field 1 key and return the value
-            ->get([$field1->getKey()], $ctxVal1, $this->at(0))
-            // Expect get() to be called second time with field 2 key and return the value
-            ->get([$field2->getKey()], $ctxVal2, $this->at(1))
-            ->has(true)
-            ->new();
+        $key     = 'section-test-key';
+        $label   = 'Section Test Label';
+        $subject = $this->createInstance($key, $label, [$field1, $field2])->new();
 
-        // Expect field 1 render method to be called with the context value
-        $field1->mock()
-               ->render([$ctxVal1], null, $this->once());
+        // Create context mock
+        $ctxMock = $this->getMockBuilder('Dhii\Data\Container\ContainerInterface')
+                        ->setMethods(['get', 'has'])
+                        ->getMock();
+        // Expect get() to be called first time with field 1 key and return the value
+        $ctxMock->expects($this->at(0))
+                ->method('get')
+                ->with($this->identicalTo($field1->getKey()))
+                ->willReturn($ctxVal1);
+        // Expect get() to be called second time with field 2 key and return the value
+        $ctxMock->expects($this->at(1))
+                ->method('get')
+                ->with($this->identicalTo($field2->getKey()))
+                ->willReturn($ctxVal2);
 
-        // Expect field 2 render method to be called with the context value
-        $field2->mock()
-               ->render([$ctxVal1], null, $this->once());
-
-        $reflect->_render($context);
+        $this->reflect($subject)->_render($ctxMock);
     }
 }
