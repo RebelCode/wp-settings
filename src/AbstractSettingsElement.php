@@ -9,7 +9,7 @@ use Dhii\Data\ValueAwareInterface;
 use Dhii\Output\Exception\CouldNotRenderExceptionInterface;
 use Dhii\Util\String\LabelAwareTrait;
 use Dhii\Util\String\StringableInterface as Stringable;
-use Dhii\Validation\AbstractValidatorBase;
+use Dhii\Validation\AbstractValidator;
 use Exception;
 
 /**
@@ -17,7 +17,7 @@ use Exception;
  *
  * @since [*next-version*]
  */
-abstract class AbstractSettingsElement extends AbstractValidatorBase
+abstract class AbstractSettingsElement extends AbstractValidator
 {
     /*
      * Provides key getter and setter methods.
