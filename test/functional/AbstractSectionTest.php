@@ -152,10 +152,10 @@ class AbstractSectionTest extends TestCase
         $field2 = $this->createField('second', 'Second field');
 
         $reflect->_addField($field1);
-        $this->assertContains($field1, $reflect->fields);
+        $this->assertContains($field1, $reflect->fields, 'Field 1 was not added to the section.');
 
         $reflect->_addField($field2);
-        $this->assertContains($field2, $reflect->fields);
+        $this->assertContains($field2, $reflect->fields, 'Field 2 was not added to the section.');
     }
 
     /**
@@ -176,7 +176,14 @@ class AbstractSectionTest extends TestCase
 
         $expected = [$field1, $field2];
 
-        $this->assertEquals($expected, $reflect->_getFields(), '', 0.0, 10, true);
+        $this->assertEquals(
+            $expected,
+            $reflect->_getFields(),
+            'Retrieved fields are incorrect.',
+            0.0,
+            10,
+            true
+        );
     }
 
     /**
