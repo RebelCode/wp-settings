@@ -52,7 +52,7 @@ class AbstractSectionTest extends TestCase
                      ->getDescription()
                      ->getKey($key)
                      ->validate()
-                     ->render(sprintf('%1%s = $2%s', $key, $label));
+                     ->render();
 
         return $mock->new();
     }
@@ -203,8 +203,6 @@ class AbstractSectionTest extends TestCase
 
         $this->assertContains($key, $rendered, 'Render does not contain the section key.');
         $this->assertContains($label, $rendered, 'Render does not contain the section label.');
-        $this->assertContains($field1->render(), $rendered, 'Render does not contain the first field.');
-        $this->assertContains($field2->render(), $rendered, 'Render does not contain the second field.');
     }
 
     /**
