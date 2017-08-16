@@ -187,7 +187,8 @@ class AbstractSectionTest extends TestCase
     }
 
     /**
-     * Tests the render method to ensure that the rendered output contains all of the required content.
+     * Tests the render method to ensure that the rendered output contains all of the required content and that the
+     * fields' render methods are called.
      *
      * @since [*next-version*]
      */
@@ -198,6 +199,14 @@ class AbstractSectionTest extends TestCase
         $label  = 'Section Test Label';
         $field1 = $this->createField('first', 'First field');
         $field2 = $this->createField('second', 'Second field');
+
+        // Expect field 1 render method to be called
+        $field1->mock()
+               ->render([], null, $this->once());
+
+        // Expect field 2 render method to be called
+        $field2->mock()
+               ->render([], null, $this->once());
 
         $mock
             ->_getKey($key)
