@@ -35,6 +35,8 @@ class AbstractSettingsElementTest extends TestCase
         $mock = $this->mock(static::TEST_SUBJECT_CLASSNAME)
                      ->_getValidationErrors()
                      ->_createCouldNotRenderException()
+                     ->_createValidationException()
+                     ->_createValidationFailedException()
                      ->new();
 
         return $mock;
