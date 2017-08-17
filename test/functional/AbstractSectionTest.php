@@ -2,7 +2,6 @@
 
 namespace RebelCode\WordPress\Admin\Settings\FuncTest;
 
-use Exception;
 use ReflectionClass;
 use Xpmock\MockWriter;
 use Xpmock\TestCase;
@@ -26,15 +25,14 @@ class AbstractSectionTest extends TestCase
      *
      * @since [*next-version*]
      *
-     * @param string     $key
-     * @param string     $label
+     * @param string     $key    The section's key.
+     * @param string     $label  The section's label.
      * @param array|null $fields The fields for this section.
      *
      * @return MockWriter
      */
     public function createInstance($key = '', $label = '', $fields = null)
     {
-        $_this = $this;
         $mock  = $this->mock(static::TEST_SUBJECT_CLASSNAME)
                       ->_getKey($key)
                       ->_getLabel($label)
