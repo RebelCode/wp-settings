@@ -34,7 +34,7 @@ class CompositeValidatorTraitTest extends TestCase
     {
         // Create mock
         $mock = $this->getMockForTrait(static::TEST_SUBJECT_CLASSNAME);
-        $mock->method('_getChildrenValidators')
+        $mock->method('_getChildValidators')
              ->willReturn($validators);
 
         return $mock;

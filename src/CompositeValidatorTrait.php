@@ -64,5 +64,5 @@ trait CompositeValidatorTrait
      *
      * @return ValidatorInterface[]|Traversable The validator instances, mapped via unique keys.
      */
-    abstract protected function _getChildrenValidators();
+    abstract protected function _getChildValidators();
 }

@@ -90,7 +90,7 @@ abstract class AbstractSection extends AbstractSettingsElement
      *
      * @since [*next-version*]
      */
-    protected function _getChildrenValidators()
+    protected function _getChildValidators()
     {
         return $this->_getFields();
     }
