@@ -2,8 +2,10 @@
 
 namespace RebelCode\WordPress\Admin\Settings\FuncTest;
 
+use Dhii\Validation\Exception\ValidationFailedException;
 use Exception;
 use RebelCode\WordPress\Admin\Settings\AbstractField;
+use Xpmock\MockWriter;
 use Xpmock\TestCase;
 
 /**
@@ -25,21 +27,18 @@ class AbstractFieldTest extends TestCase
      *
      * @since [*next-version*]
      *
-     * @param string $render The field render output.
-     * @param array  $errors The validation errors.
-     *
-     * @return AbstractField
+     * @return MockWriter
      */
-    public function createInstance($render = '', $errors = [])
+    public function createInstance()
     {
         $mock = $this->mock(static::TEST_SUBJECT_CLASSNAME)
-                     ->_renderField($render)
-                     ->_getValidationErrors($errors)
-                     ->_createCouldNotRenderException(function() {
-                         return new Exception();
-                     });
+                     ->_renderField()
+                     ->_getValidationErrors()
+                     ->_createCouldNotRenderException()
+                     ->_createValidationException()
+                     ->_createValidationFailedException();
 
-        return $mock->new();
+        return $mock;
     }
 
     /**
@@ -49,7 +48,7 @@ class AbstractFieldTest extends TestCase
      */
     public function testCanBeCreated()
     {
-        $subject = $this->createInstance();
+        $subject = $this->createInstance()->new();
 
         $this->assertInstanceOf(
             static::TEST_SUBJECT_CLASSNAME, $subject,
@@ -64,7 +63,11 @@ class AbstractFieldTest extends TestCase
      */
     public function testRender()
     {
-        $subject = $this->createInstance($field = '<p>rendered field</p>', []);
+        $mock = $this->createInstance();
+        // Expect field render method to be called once
+        $mock->_renderField($this->once());
+
+        $subject = $mock->new();
         $reflect = $this->reflect($subject);
 
         $reflect->_setKey($key = 'test-field');
@@ -76,24 +79,66 @@ class AbstractFieldTest extends TestCase
         $this->assertContains($key, $rendered);
         $this->assertContains($label, $rendered);
         $this->assertContains($desc, $rendered);
-        $this->assertContains($field, $rendered);
     }
 
     /**
-     * Tests the render method with validation errors to ensure that an exception is thrown.
+     * Tests the render method with a render context value to assert whether the context is received.
+     *
+     * @since [*next-version*]
+     */
+    public function testRenderWithContext()
+    {
+        $ctxVal  = 'some render context value';
+        $mock = $this->createInstance();
+        // Expect field render method to be called once with the context value
+        $mock->_renderField([$this->identicalTo($ctxVal)], $this->anything(), $this->once());
+
+        $subject = $mock->new();
+        $reflect = $this->reflect($subject);
+
+        $reflect->_render($ctxVal);
+    }
+
+    /**
+     * Tests the render method with validation errors to ensure that an exception is created.
      *
      * @since [*next-version*]
      */
     public function testRenderFail()
     {
-        $subject = $this->createInstance($field = '<p>rendered field</p>', [
-            'Some error',
-            'Because something always goes wrong'
-        ]);
+        $ctx      = 'some context value';
+        $vMessage = 'Validation of render context failed. This is expected since it is the behavior under test';
+        $rMessage = 'Failed to render the test subject. This is expected since it is the behaviour under test.';
+
+        $mock = $this->mock(static::TEST_SUBJECT_CLASSNAME)
+                     ->_renderField()
+                     ->_createValidationException()
+                     // Expect the validation errors getter method to be called with the context as argument, and
+                     // mock the return value to simulate validation errors
+                     ->_getValidationErrors(
+                         [$ctx],
+                         $this->returnValue(['some', 'validation', 'errors']),
+                         $this->once()
+                     )
+                     // Expect the validation failure exception factory to be called. Mock the return value to
+                     // simulate validation errors.
+                     ->_createValidationFailedException(
+                         [$this->anything()],
+                         $this->returnValue(new ValidationFailedException($vMessage)),
+                         $this->once()
+                     )
+                     ->_createCouldNotRenderException(
+                         [$this->anything()],
+                         $this->returnValue(new Exception($rMessage)),
+                         $this->any()
+                     );
+
+        // Expect the RENDER exception to be thrown (not the validation exception)
+        $this->setExpectedException('\Exception', $rMessage);
+
+        $subject = $mock->new();
         $reflect = $this->reflect($subject);
 
-        $this->setExpectedException('\Exception');
-
-        $reflect->_render();
+        $reflect->_render($ctx);
     }
 }
