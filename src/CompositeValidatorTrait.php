@@ -23,14 +23,24 @@ trait CompositeValidatorTrait
      *
      * @since [*next-version*]
      *
-     * @return array|Countable|Traversable The list of validation errors.
+     * @param mixed $subject      The subject to validate.
+     * @param bool  $groupByChild If true, the validation errors are grouped by each child's key.
+     *
+     * @return array|Countable|Traversable The list of validation errors. The $groupByChild is true, each child key
+     *                                     will map to a sub-array of child-specific errors.
      */
-    protected function _getValidationErrors($subject)
+    protected function _getValidationErrors($subject, $groupByChild = false)
     {
         $errors = [];
 
-        foreach ($this->_getChildrenValidators() as $_key => $_validator) {
-            $errors[$_key] = $this->_getValidationErrorsForChild($subject, $_validator);
+        foreach ($this->_getChildValidators() as $_key => $_validator) {
+            $_childErrors = $this->_getValidationErrorsForChild($subject, $_validator);
+
+            if ($groupByChild) {
+                $_childErrors = [$_key => $_childErrors];
+            }
+
+            $errors = array_merge($errors, $_childErrors);
         }
 
         return $errors;

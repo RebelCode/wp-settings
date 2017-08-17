@@ -28,7 +28,7 @@ class CompositeValidatorTraitTest extends TestCase
      *
      * @param ValidatorInterface[] $validators The children validators.
      *
-     * @return CompositeValidatorTrait
+     * @return \PHPUnit_Framework_MockObject_MockObject
      */
     public function createInstance($validators = [])
     {
@@ -112,12 +112,50 @@ class CompositeValidatorTraitTest extends TestCase
         );
         $reflect = $this->reflect($subject);
 
+        $expected = array_merge($ve1, $ve2, $ve3);
+        $errors   = $reflect->_getValidationErrors(null);
+
+        $this->assertEquals($expected, $errors, 'Validation errors do not match the children errors.');
+    }
+
+    /**
+     * Tests the validation errors getter method with grouping enabled to ensure that the children validator errors are
+     * correctly included and mapped by child keys.
+     *
+     * @since [*next-version*]
+     */
+    public function testGetValidationErrorsWithGrouping()
+    {
+        $subject = $this->createInstance(
+            [
+                'first-one'         => $this->createValidator(
+                    $ve1 = [
+                        'This is the first validation error',
+                        'Whoops. Another error',
+                    ]
+                ),
+                'special-validator' => $this->createValidator(
+                    $ve2 = [
+                        'Lorem ipsum dolor sit amet',
+                    ]
+                ),
+                $this->createValidator(
+                    $ve3 = [
+                        'consectetur adipiscing elit',
+                        'ed do eiusmod tempor incididunt ut',
+                        'labore et dolore magna aliqua',
+                    ]
+                ),
+            ]
+        );
+        $reflect = $this->reflect($subject);
+
         $expected = [
             'first-one'         => $ve1,
             'special-validator' => $ve2,
             0                   => $ve3,
         ];
-        $errors   = $reflect->_getValidationErrors(null);
+        $errors   = $reflect->_getValidationErrors(null, true);
 
         $this->assertEquals($expected, $errors, 'Validation errors do not match the children errors.');
     }

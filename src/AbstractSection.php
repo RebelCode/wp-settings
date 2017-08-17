@@ -28,7 +28,9 @@ abstract class AbstractSection extends AbstractSettingsElement
      *
      * @since [*next-version*]
      */
-    use CompositeValidatorTrait;
+    use CompositeValidatorTrait {
+        _getValidationErrors as _getValidationErrorsGroupable;
+    }
 
     /**
      * The fields in this section.
@@ -93,6 +95,16 @@ abstract class AbstractSection extends AbstractSettingsElement
     protected function _getChildValidators()
     {
         return $this->_getFields();
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @since [*next-version*]
+     */
+    protected function _getValidationErrors($subject)
+    {
+        return $this->_getValidationErrorsGroupable($subject, false);
     }
 
     /**
