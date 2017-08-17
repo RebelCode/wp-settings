@@ -70,6 +70,35 @@ class AbstractSectionTest extends TestCase
     }
 
     /**
+     * Creates a render context mock with fake return values and expectations.
+     *
+     * @since [*next-version*]
+     *
+     * @param array $expectations An numerically indexed array where the keys should be the expected invocation
+     *                            index, whilst the values should be sub-arrays containing 2 elements: the expected key
+     *                            to be passed to get() as the first element and the fake return value as the second.
+     *
+     * @return PHPUnit_Framework_MockObject_MockObject
+     */
+    public function createRenderContext(array $expectations = [])
+    {
+        $ctxMock = $this->getMockBuilder('Dhii\Data\Container\ContainerInterface')
+                        ->setMethods(['get', 'has'])
+                        ->getMock();
+
+        foreach ($expectations as $_index => $_expectation) {
+            list($_expectedKey, $_expectedVal) = $_expectation;
+
+            $ctxMock->expects($this->at($_index))
+                    ->method('get')
+                    ->with($this->identicalTo($_expectedKey))
+                    ->willReturn($_expectedVal);
+        }
+
+        return $ctxMock;
+    }
+
+    /**
      * Tests whether a valid instance of the test subject can be created.
      *
      * @since [*next-version*]
@@ -187,19 +216,13 @@ class AbstractSectionTest extends TestCase
         $subject = $this->createInstance($key, $label, [$field1, $field2])->new();
 
         // Create context mock
-        $ctxMock = $this->getMockBuilder('Dhii\Data\Container\ContainerInterface')
-                        ->setMethods(['get', 'has'])
-                        ->getMock();
-        // Expect get() to be called first time with field 1 key and return the value
-        $ctxMock->expects($this->at(0))
-                ->method('get')
-                ->with($this->identicalTo($field1->getKey()))
-                ->willReturn($ctxVal1);
-        // Expect get() to be called second time with field 2 key and return the value
-        $ctxMock->expects($this->at(1))
-                ->method('get')
-                ->with($this->identicalTo($field2->getKey()))
-                ->willReturn($ctxVal2);
+        $ctxMock = $this->createRenderContext(
+            [
+                // invocation index => [key passed to get(), value returned by get()]
+                0 => [$field1->getKey(), $ctxVal1],
+                1 => [$field2->getKey(), $ctxVal2]
+            ]
+        );
 
         $this->reflect($subject)->_render($ctxMock);
     }
