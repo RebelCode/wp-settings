@@ -6,7 +6,7 @@ use ArrayObject;
 use DateTime;
 use Dhii\Data\Container\ContainerInterface;
 use Dhii\Data\ValueAwareInterface;
-use RebelCode\WordPress\Admin\Settings\AbstractSettingsElement;
+use Xpmock\MockWriter;
 use Xpmock\TestCase;
 
 /**
@@ -28,16 +28,13 @@ class AbstractSettingsElementTest extends TestCase
      *
      * @since [*next-version*]
      *
-     * @return AbstractSettingsElement
+     * @return MockWriter
      */
     public function createInstance()
     {
         $mock = $this->mock(static::TEST_SUBJECT_CLASSNAME)
-                     ->_getValidationErrors()
-                     ->_createCouldNotRenderException()
-                     ->_createValidationException()
-                     ->_createValidationFailedException()
-                     ->new();
+                     ->_renderElement()
+                     ->_createCouldNotRenderException();
 
         return $mock;
     }
@@ -102,7 +99,7 @@ class AbstractSettingsElementTest extends TestCase
      */
     public function testCanBeCreated()
     {
-        $subject = $this->createInstance();
+        $subject = $this->createInstance()->new();
 
         $this->assertInstanceOf(
             static::TEST_SUBJECT_CLASSNAME, $subject,
@@ -117,7 +114,7 @@ class AbstractSettingsElementTest extends TestCase
      */
     public function testGetRenderContextKey()
     {
-        $subject = $this->createInstance();
+        $subject = $this->createInstance()->new();
         $reflect = $this->reflect($subject);
 
         $reflect->_setKey($key = 'my-123-key');
@@ -132,7 +129,7 @@ class AbstractSettingsElementTest extends TestCase
      */
     public function testNormalizeRenderContextWithContainerHasValue()
     {
-        $subject = $this->createInstance();
+        $subject = $this->createInstance()->new();
         $reflect = $this->reflect($subject);
 
         $key       = 'my-key';
@@ -150,7 +147,7 @@ class AbstractSettingsElementTest extends TestCase
      */
     public function testNormalizeRenderContextWithContainerNoValue()
     {
-        $subject = $this->createInstance();
+        $subject = $this->createInstance()->new();
         $reflect = $this->reflect($subject);
 
         $key       = 'my-key';
@@ -167,7 +164,7 @@ class AbstractSettingsElementTest extends TestCase
      */
     public function testNormalizeRenderContextWithValueAware()
     {
-        $subject = $this->createInstance();
+        $subject = $this->createInstance()->new();
         $reflect = $this->reflect($subject);
 
         $valueAware = $this->createValueAware($value = 'my test value');
@@ -182,7 +179,7 @@ class AbstractSettingsElementTest extends TestCase
      */
     public function testNormalizeRenderContextWithStringable()
     {
-        $subject = $this->createInstance();
+        $subject = $this->createInstance()->new();
         $reflect = $this->reflect($subject);
 
         $stringable = $this->createStringable($string = 'my test string');
@@ -197,7 +194,7 @@ class AbstractSettingsElementTest extends TestCase
      */
     public function testNormalizeRenderContextWithArray()
     {
-        $subject = $this->createInstance();
+        $subject = $this->createInstance()->new();
         $reflect = $this->reflect($subject);
 
         $array = [
@@ -218,7 +215,7 @@ class AbstractSettingsElementTest extends TestCase
      */
     public function testNormalizeRenderContextWithArrayAccess()
     {
-        $subject = $this->createInstance();
+        $subject = $this->createInstance()->new();
         $reflect = $this->reflect($subject);
 
         $arrayObject = new ArrayObject([
@@ -240,7 +237,7 @@ class AbstractSettingsElementTest extends TestCase
      */
     public function testNormalizeRenderContextWithNonSupportedValue()
     {
-        $subject = $this->createInstance();
+        $subject = $this->createInstance()->new();
         $reflect = $this->reflect($subject);
 
         $number = 123456;
@@ -250,5 +247,21 @@ class AbstractSettingsElementTest extends TestCase
         $this->assertEquals($number, $reflect->_normalizeRenderContext($number));
         $this->assertEquals($string, $reflect->_normalizeRenderContext($string));
         $this->assertEquals($misc, $reflect->_normalizeRenderContext($misc));
+    }
+
+    /**
+     * Tests the render method to ensure that context normalization and block retrieval are invoked.
+     *
+     * @since [*next-version*]
+     */
+    public function testRender()
+    {
+        $subject = $this->createInstance()
+                        ->_normalizeRenderContext($this->once())
+                        ->_renderElement($this->once())
+                        ->new();
+        $reflect = $this->reflect($subject);
+
+        $reflect->_render();
     }
 }

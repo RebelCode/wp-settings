@@ -6,10 +6,10 @@ use ArrayAccess;
 use Dhii\Data\Container\ContainerInterface;
 use Dhii\Data\KeyAwareTrait;
 use Dhii\Data\ValueAwareInterface;
+use Dhii\I18n\StringTranslatingTrait;
 use Dhii\Output\Exception\CouldNotRenderExceptionInterface;
 use Dhii\Util\String\LabelAwareTrait;
 use Dhii\Util\String\StringableInterface as Stringable;
-use Dhii\Validation\AbstractValidator;
 use Exception;
 
 /**
@@ -17,7 +17,7 @@ use Exception;
  *
  * @since [*next-version*]
  */
-abstract class AbstractSettingsElement extends AbstractValidator
+abstract class AbstractSettingsElement
 {
     /*
      * Provides key getter and setter methods.
@@ -32,6 +32,29 @@ abstract class AbstractSettingsElement extends AbstractValidator
      * @since [*next-version*]
      */
     use LabelAwareTrait;
+
+    /*
+     * Provides basic string translating capabilities via `$this->__()`.
+     *
+     * @since [*next-version*]
+     */
+    use StringTranslatingTrait;
+
+    /**
+     * Renders the settings element.
+     *
+     * @since [*next-version*]
+     *
+     * @param mixed $pContext The render context.
+     *
+     * @return string|Stringable The rendered content.
+     */
+    protected function _render($pContext = null)
+    {
+        $context = $this->_normalizeRenderContext($pContext);
+
+        return (string) $this->_renderElement($context);
+    }
 
     /**
      * Normalizes the render context.
@@ -76,6 +99,17 @@ abstract class AbstractSettingsElement extends AbstractValidator
     {
         return $this->_getKey();
     }
+
+    /**
+     * Renders the settings element.
+     *
+     * @since [*next-version*]
+     *
+     * @param mixed $context Optional render context.
+     *
+     * @return Stringable|string
+     */
+    abstract protected function _renderElement($context = null);
 
     /**
      * Creates an exception for when the renderer fails to render.
