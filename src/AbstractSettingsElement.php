@@ -6,7 +6,6 @@ use ArrayAccess;
 use Dhii\Data\Container\ContainerInterface;
 use Dhii\Data\KeyAwareTrait;
 use Dhii\Data\ValueAwareInterface;
-use Dhii\I18n\StringTranslatingTrait;
 use Dhii\Output\Exception\CouldNotRenderExceptionInterface;
 use Dhii\Util\String\LabelAwareTrait;
 use Dhii\Util\String\StringableInterface as Stringable;
@@ -32,13 +31,6 @@ abstract class AbstractSettingsElement
      * @since [*next-version*]
      */
     use LabelAwareTrait;
-
-    /*
-     * Provides basic string translating capabilities via `$this->__()`.
-     *
-     * @since [*next-version*]
-     */
-    use StringTranslatingTrait;
 
     /**
      * Renders the settings element.
