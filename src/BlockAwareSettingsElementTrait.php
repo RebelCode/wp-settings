@@ -3,13 +3,14 @@
 namespace RebelCode\WordPress\Admin\Settings;
 
 use Dhii\Block\BlockInterface;
+use Dhii\Util\String\StringableInterface as Stringable;
 
 /**
- * Something that is aware of a block.
+ * A settings element that is aware of a block.
  *
  * @since [*next-version*]
  */
-trait BlockAwareTrait
+trait BlockAwareSettingsElementTrait
 {
     /**
      * The block instance.
@@ -46,5 +47,19 @@ trait BlockAwareTrait
         $this->block = $block;
 
         return $this;
+    }
+
+    /**
+     * Renders the settings element.
+     *
+     * @since [*next-version*]
+     *
+     * @param mixed $context Optional render context.
+     *
+     * @return Stringable|string The rendered output.
+     */
+    protected function _renderElement($context = null)
+    {
+        return $this->_getBlock()->render($context);
     }
 }
