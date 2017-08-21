@@ -14,7 +14,7 @@ use Dhii\Validation\Exception\ValidationFailedExceptionInterface;
  *
  * @since [*next-version*]
  */
-abstract class AbstractField extends AbstractSettingsElement
+abstract class AbstractField extends AbstractElement
 {
     /*
      * Provides basic string translating capabilities via `$this->__()`.

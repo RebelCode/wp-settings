@@ -16,7 +16,7 @@ use Exception;
  *
  * @since [*next-version*]
  */
-abstract class AbstractSettingsElement
+abstract class AbstractElement
 {
     /*
      * Provides key getter and setter methods.

@@ -13,7 +13,7 @@ use Traversable;
  *
  * @since [*next-version*]
  */
-abstract class AbstractScreen extends AbstractSettingsElement
+abstract class AbstractScreen extends AbstractElement
 {
     /*
      * Provides functionality for validation using children validators.

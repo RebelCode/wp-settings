@@ -14,7 +14,7 @@ use Traversable;
  *
  * @since [*next-version*]
  */
-abstract class AbstractSection extends AbstractSettingsElement
+abstract class AbstractSection extends AbstractElement
 {
     /*
      * Provides basic string translating capabilities via `$this->__()`.

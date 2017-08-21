@@ -10,18 +10,18 @@ use Xpmock\MockWriter;
 use Xpmock\TestCase;
 
 /**
- * Tests {@see \RebelCode\WordPress\Admin\Settings\AbstractSettingsElement}.
+ * Tests {@see \RebelCode\WordPress\Admin\Settings\AbstractElement}.
  *
  * @since [*next-version*]
  */
-class AbstractSettingsElementTest extends TestCase
+class AbstractElementTest extends TestCase
 {
     /**
      * The class name of the test subject.
      *
      * @since [*next-version*]
      */
-    const TEST_SUBJECT_CLASSNAME = 'RebelCode\WordPress\Admin\Settings\AbstractSettingsElement';
+    const TEST_SUBJECT_CLASSNAME = 'RebelCode\WordPress\Admin\Settings\AbstractElement';
 
     /**
      * Creates a new instance of the test subject.
