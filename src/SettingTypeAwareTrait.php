@@ -16,7 +16,7 @@ trait SettingTypeAwareTrait
      *
      * @since [*next-version*]
      *
-     * @var string
+     * @var string|Stringable
      */
     protected $settingType;
 
@@ -25,7 +25,7 @@ trait SettingTypeAwareTrait
      *
      * @since [*next-version*]
      *
-     * @return string The setting type.
+     * @return string|Stringable The setting type.
      */
     protected function _getSettingType()
     {
