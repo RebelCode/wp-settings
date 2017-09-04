@@ -3,7 +3,6 @@
 namespace RebelCode\WordPress\Admin\Settings\FuncTest;
 
 use Dhii\Type\TypeInterface;
-use RebelCode\WordPress\Admin\Settings\TypeAwareTrait;
 use Xpmock\TestCase;
 
 /**
@@ -25,7 +24,7 @@ class TypeAwareTraitTest extends TestCase
      *
      * @since [*next-version*]
      *
-     * @return TypeAwareTrait
+     * @return \PHPUnit_Framework_MockObject_MockObject
      */
     public function createInstance()
     {
