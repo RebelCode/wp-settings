@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "fc3dc1a7adb6bd6c4912dd32aeca3e1b",
+    "content-hash": "dc969f47e7cd9d48beb9a45d79556efa",
     "packages": [
         {
             "name": "dhii/data-container-interface",
@@ -96,58 +96,16 @@
             "time": "2017-03-07T16:25:09+00:00"
         },
         {
-            "name": "dhii/data-key-value-aware-interface",
-            "version": "v0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Dhii/data-key-value-aware-interface.git",
-                "reference": "220232bc9040fab78a6c039f5a4a5f9542317bdc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/data-key-value-aware-interface/zipball/220232bc9040fab78a6c039f5a4a5f9542317bdc",
-                "reference": "220232bc9040fab78a6c039f5a4a5f9542317bdc",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.3 | ^7.0"
-            },
-            "require-dev": {
-                "codeclimate/php-test-reporter": "<=0.3.2",
-                "dhii/php-cs-fixer-config": "dev-php-5.3",
-                "phpunit/phpunit": "4.*",
-                "ptrofimov/xpmock": "^1.1"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Dhii\\Data\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Dhii Team",
-                    "email": "development@dhii.co"
-                }
-            ],
-            "description": "Interfaces that aim to increase interoperability of value objects",
-            "time": "2017-01-21T17:35:30+00:00"
-        },
-        {
-            "name": "dhii/data-key-value-aware-trait",
+            "name": "dhii/data-key-value-aware-abstract",
             "version": "dev-task/initial-traits",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Dhii/data-key-value-aware-trait.git",
+                "url": "https://github.com/Dhii/data-key-value-aware-abstract.git",
                 "reference": "15189f54ba2807afdcfda6d3b09d79fca047c24d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/data-key-value-aware-trait/zipball/15189f54ba2807afdcfda6d3b09d79fca047c24d",
+                "url": "https://api.github.com/repos/Dhii/data-key-value-aware-abstract/zipball/15189f54ba2807afdcfda6d3b09d79fca047c24d",
                 "reference": "15189f54ba2807afdcfda6d3b09d79fca047c24d",
                 "shasum": ""
             },
@@ -189,6 +147,48 @@
                 "issues": "https://github.com/Dhii/data-key-value-aware-trait/issues"
             },
             "time": "2017-06-21 11:16:16"
+        },
+        {
+            "name": "dhii/data-key-value-aware-interface",
+            "version": "v0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dhii/data-key-value-aware-interface.git",
+                "reference": "220232bc9040fab78a6c039f5a4a5f9542317bdc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dhii/data-key-value-aware-interface/zipball/220232bc9040fab78a6c039f5a4a5f9542317bdc",
+                "reference": "220232bc9040fab78a6c039f5a4a5f9542317bdc",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3 | ^7.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/php-cs-fixer-config": "dev-php-5.3",
+                "phpunit/phpunit": "4.*",
+                "ptrofimov/xpmock": "^1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Dhii\\Data\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dhii Team",
+                    "email": "development@dhii.co"
+                }
+            ],
+            "description": "Interfaces that aim to increase interoperability of value objects",
+            "time": "2017-01-21T17:35:30+00:00"
         },
         {
             "name": "dhii/exception-interface",
@@ -1144,7 +1144,7 @@
             ],
             "authors": [
                 {
-                    "name": "Dariusz RumiÅski",
+                    "name": "Dariusz Rumiński",
                     "email": "dariusz.ruminski@gmail.com"
                 },
                 {
@@ -2793,7 +2793,7 @@
     "stability-flags": {
         "rebelcode/wp-settings-interface": 20,
         "rebelcode/wp-nonce-interface": 20,
-        "dhii/data-key-value-aware-trait": 20,
+        "dhii/data-key-value-aware-abstract": 20,
         "dhii/data-container-interface": 20,
         "dhii/i18n-helper-base": 20,
         "dhii/output-renderer-interface": 20,

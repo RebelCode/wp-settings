@@ -15,7 +15,7 @@
         "php": "^5.4 | ^7.0",
         "rebelcode/wp-settings-interface": "dev-task/initial-interfaces",
         "rebelcode/wp-nonce-interface": "dev-task/initial-interfaces",
-        "dhii/data-key-value-aware-trait": "dev-task/initial-traits",
+        "dhii/data-key-value-aware-abstract": "dev-task/initial-traits",
         "dhii/data-container-interface": "dev-develop",
         "dhii/i18n-interface": "^0.1",
         "dhii/i18n-helper-base": "dev-develop",
