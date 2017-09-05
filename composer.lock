@@ -4,55 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1252d866a66f82a50edfe6072dd0bcf7",
+    "content-hash": "f07fd4cc78bb2f0af6a1d35cec2b19cf",
     "packages": [
-        {
-            "name": "dhii/data-container-interface",
-            "version": "dev-develop",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Dhii/data-container-interface.git",
-                "reference": "57f589f402006639594e9884258712ce4ee463bc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/data-container-interface/zipball/57f589f402006639594e9884258712ce4ee463bc",
-                "reference": "57f589f402006639594e9884258712ce4ee463bc",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.3 | ^7.0",
-                "psr/container": "^1.0"
-            },
-            "require-dev": {
-                "codeclimate/php-test-reporter": "<=0.3.2",
-                "dhii/php-cs-fixer-config": "dev-php-5.3",
-                "dhii/stringable-interface": "^0.1",
-                "phpunit/phpunit": "^4.8",
-                "ptrofimov/xpmock": "^1.1"
-            },
-            "suggest": {
-                "dhii/stringable-interface": "To be able to pass Stringables as keys"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Dhii\\Data\\Container\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Dhii Team",
-                    "email": "development@dhii.co"
-                }
-            ],
-            "description": "Interfaces for working with data containers",
-            "time": "2017-08-14 14:41:16"
-        },
         {
             "name": "dhii/data-key-value-aware-abstract",
             "version": "dev-task/initial-traits",
@@ -2752,7 +2705,6 @@
     "stability-flags": {
         "rebelcode/wp-settings-interface": 20,
         "dhii/data-key-value-aware-abstract": 20,
-        "dhii/data-container-interface": 20,
         "dhii/i18n-helper-base": 20,
         "dhii/output-renderer-interface": 20,
         "dhii/output-renderer-abstract": 20,

@@ -15,12 +15,12 @@
         "php": "^5.4 | ^7.0",
         "rebelcode/wp-settings-interface": "dev-task/initial-interfaces",
         "dhii/data-key-value-aware-abstract": "dev-task/initial-traits",
-        "dhii/data-container-interface": "dev-develop",
         "dhii/i18n-helper-base": "dev-develop",
         "dhii/validation-base": "^0.1",
         "dhii/output-renderer-interface": "dev-release/0.1",
         "dhii/output-renderer-abstract": "dev-task/initial-classes",
-        "dhii/human-readable-abstract": "dev-task/initial-classes"
+        "dhii/human-readable-abstract": "dev-task/initial-classes",
+        "psr/container": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.8",
