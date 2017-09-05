@@ -58,6 +58,10 @@
         },
         {
             "type": "vcs",
+            "url": "https://github.com/Dhii/human-readable-interface"
+        },
+        {
+            "type": "vcs",
             "url": "https://github.com/Dhii/human-readable-abstract"
         },
         {
