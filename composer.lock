@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "dc969f47e7cd9d48beb9a45d79556efa",
+    "content-hash": "1252d866a66f82a50edfe6072dd0bcf7",
     "packages": [
         {
             "name": "dhii/data-container-interface",
@@ -54,59 +54,17 @@
             "time": "2017-08-14 14:41:16"
         },
         {
-            "name": "dhii/data-identifiable-interface",
-            "version": "v0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Dhii/data-identifiable-interface.git",
-                "reference": "59e160c85c9d9246ce51ad611ce2bb686ba3dc2d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/data-identifiable-interface/zipball/59e160c85c9d9246ce51ad611ce2bb686ba3dc2d",
-                "reference": "59e160c85c9d9246ce51ad611ce2bb686ba3dc2d",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.3 | ^7.0"
-            },
-            "require-dev": {
-                "codeclimate/php-test-reporter": "<=0.3.2",
-                "dhii/php-cs-fixer-config": "dev-php-5.3",
-                "phpunit/phpunit": "^4.8",
-                "ptrofimov/xpmock": "^1.1"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Dhii\\Data\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Dhii Team",
-                    "email": "development@dhii.co"
-                }
-            ],
-            "description": "Interfaces for objects that are identifiable.",
-            "time": "2017-03-07T16:25:09+00:00"
-        },
-        {
             "name": "dhii/data-key-value-aware-abstract",
             "version": "dev-task/initial-traits",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dhii/data-key-value-aware-abstract.git",
-                "reference": "15189f54ba2807afdcfda6d3b09d79fca047c24d"
+                "reference": "d98034db273ed98194fbaf600a14ddf76b07dcff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/data-key-value-aware-abstract/zipball/15189f54ba2807afdcfda6d3b09d79fca047c24d",
-                "reference": "15189f54ba2807afdcfda6d3b09d79fca047c24d",
+                "url": "https://api.github.com/repos/Dhii/data-key-value-aware-abstract/zipball/d98034db273ed98194fbaf600a14ddf76b07dcff",
+                "reference": "d98034db273ed98194fbaf600a14ddf76b07dcff",
                 "shasum": ""
             },
             "require": {
@@ -143,10 +101,10 @@
             ],
             "description": "Traits for objects that are aware of a key, a value, or both.",
             "support": {
-                "source": "https://github.com/Dhii/data-key-value-aware-trait/tree/task/initial-traits",
-                "issues": "https://github.com/Dhii/data-key-value-aware-trait/issues"
+                "source": "https://github.com/Dhii/data-key-value-aware-abstract/tree/task/initial-traits",
+                "issues": "https://github.com/Dhii/data-key-value-aware-abstract/issues"
             },
-            "time": "2017-06-21 11:16:16"
+            "time": "2017-09-05 07:55:14"
         },
         {
             "name": "dhii/data-key-value-aware-interface",
@@ -234,17 +192,17 @@
             "time": "2017-09-01T18:00:26+00:00"
         },
         {
-            "name": "dhii/human-readable-helper-base",
+            "name": "dhii/human-readable-abstract",
             "version": "dev-task/initial-classes",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Dhii/human-readable-helper-base.git",
-                "reference": "353c4a07378777b5ce340b527eb44f336f331060"
+                "url": "https://github.com/Dhii/human-readable-abstract.git",
+                "reference": "165bd4f1c7bdca4d774e353c030e1da3deb66001"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/human-readable-helper-base/zipball/353c4a07378777b5ce340b527eb44f336f331060",
-                "reference": "353c4a07378777b5ce340b527eb44f336f331060",
+                "url": "https://api.github.com/repos/Dhii/human-readable-abstract/zipball/165bd4f1c7bdca4d774e353c030e1da3deb66001",
+                "reference": "165bd4f1c7bdca4d774e353c030e1da3deb66001",
                 "shasum": ""
             },
             "require": {
@@ -280,12 +238,12 @@
                     "email": "development@dhii.co"
                 }
             ],
-            "description": "Helper functionality related to human readable strings",
+            "description": "Common abstract functionality related to human readable strings",
             "support": {
-                "source": "https://github.com/Dhii/human-readable-helper-base/tree/task/initial-classes",
-                "issues": "https://github.com/Dhii/human-readable-helper-base/issues"
+                "source": "https://github.com/Dhii/human-readable-abstract/tree/task/initial-classes",
+                "issues": "https://github.com/Dhii/human-readable-abstract/issues"
             },
-            "time": "2017-08-11 14:01:54"
+            "time": "2017-09-05 13:03:18"
         },
         {
             "name": "dhii/human-readable-interface",
@@ -430,6 +388,62 @@
             ],
             "description": "Interfaces for internationalization.",
             "time": "2017-03-13T12:08:29+00:00"
+        },
+        {
+            "name": "dhii/output-renderer-abstract",
+            "version": "dev-task/initial-classes",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dhii/output-renderer-abstract.git",
+                "reference": "5dcf5e961de1d5f6cd6a8367e8aafb9ea1c58386"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dhii/output-renderer-abstract/zipball/5dcf5e961de1d5f6cd6a8367e8aafb9ea1c58386",
+                "reference": "5dcf5e961de1d5f6cd6a8367e8aafb9ea1c58386",
+                "shasum": ""
+            },
+            "require": {
+                "dhii/output-renderer-interface": "dev-release/0.1",
+                "php": "^5.4 | ^7.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/exception-interface": "^0.1",
+                "dhii/php-cs-fixer-config": "^0.1",
+                "dhii/validation-base": "^0.1",
+                "phpunit/phpunit": "^4.8",
+                "ptrofimov/xpmock": "^1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Dhii\\Output\\": "src"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "phpunit"
+                ],
+                "csfix": [
+                    "php-cs-fixer fix -vvv"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dhii Team",
+                    "email": "development@dhii.co"
+                }
+            ],
+            "description": "Common abstract functionality for output renderers.",
+            "support": {
+                "source": "https://github.com/Dhii/output-renderer-abstract/tree/task/initial-classes",
+                "issues": "https://github.com/Dhii/output-renderer-abstract/issues"
+            },
+            "time": "2017-09-05 12:59:43"
         },
         {
             "name": "dhii/output-renderer-interface",
@@ -743,61 +757,6 @@
                 "psr"
             ],
             "time": "2017-02-14T16:28:37+00:00"
-        },
-        {
-            "name": "rebelcode/wp-nonce-interface",
-            "version": "dev-task/initial-interfaces",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/RebelCode/wp-nonce-interface.git",
-                "reference": "214adf28f732a50f84bfd0d5bd63c6f33bcc137c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/RebelCode/wp-nonce-interface/zipball/214adf28f732a50f84bfd0d5bd63c6f33bcc137c",
-                "reference": "214adf28f732a50f84bfd0d5bd63c6f33bcc137c",
-                "shasum": ""
-            },
-            "require": {
-                "dhii/data-identifiable-interface": "^0.1.0",
-                "dhii/validation-interface": "^0.1.0",
-                "php": "^5.3 | ^7.0"
-            },
-            "require-dev": {
-                "codeclimate/php-test-reporter": "<=0.3.2",
-                "dhii/php-cs-fixer-config": "dev-php-5.3",
-                "phpunit/phpunit": "^4.8",
-                "ptrofimov/xpmock": "^1.1"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "RebelCode\\WordPress\\Nonce\\": "src"
-                }
-            },
-            "scripts": {
-                "test": [
-                    "phpunit"
-                ],
-                "csfix": [
-                    "php-cs-fixer fix -vvv"
-                ]
-            },
-            "license": [
-                "GPL-3.0"
-            ],
-            "authors": [
-                {
-                    "name": "RebelCode",
-                    "email": "dev@rebelcode.com"
-                }
-            ],
-            "description": "Interfaces for an object oriented API for WordPress nonces.",
-            "support": {
-                "source": "https://github.com/RebelCode/wp-nonce-interface/tree/task/initial-interfaces",
-                "issues": "https://github.com/RebelCode/wp-nonce-interface/issues"
-            },
-            "time": "2017-07-10 10:03:46"
         },
         {
             "name": "rebelcode/wp-settings-interface",
@@ -2792,12 +2751,12 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "rebelcode/wp-settings-interface": 20,
-        "rebelcode/wp-nonce-interface": 20,
         "dhii/data-key-value-aware-abstract": 20,
         "dhii/data-container-interface": 20,
         "dhii/i18n-helper-base": 20,
         "dhii/output-renderer-interface": 20,
-        "dhii/human-readable-helper-base": 20,
+        "dhii/output-renderer-abstract": 20,
+        "dhii/human-readable-abstract": 20,
         "dhii/expression-interface": 20
     },
     "prefer-stable": true,
