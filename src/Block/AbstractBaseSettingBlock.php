@@ -43,4 +43,14 @@ abstract class AbstractBaseSettingBlock extends AbstractSettingBlock implements 
     {
         return $this->_render();
     }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @since [*next-version*]
+     */
+    public function __toString()
+    {
+        return $this->_render();
+    }
 }
