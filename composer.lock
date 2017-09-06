@@ -348,12 +348,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dhii/output-renderer-abstract.git",
-                "reference": "5dcf5e961de1d5f6cd6a8367e8aafb9ea1c58386"
+                "reference": "da19798a4c14ae3e45a8a3a29a3c222fbdfbefac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/output-renderer-abstract/zipball/5dcf5e961de1d5f6cd6a8367e8aafb9ea1c58386",
-                "reference": "5dcf5e961de1d5f6cd6a8367e8aafb9ea1c58386",
+                "url": "https://api.github.com/repos/Dhii/output-renderer-abstract/zipball/da19798a4c14ae3e45a8a3a29a3c222fbdfbefac",
+                "reference": "da19798a4c14ae3e45a8a3a29a3c222fbdfbefac",
                 "shasum": ""
             },
             "require": {
@@ -396,7 +396,7 @@
                 "source": "https://github.com/Dhii/output-renderer-abstract/tree/task/initial-classes",
                 "issues": "https://github.com/Dhii/output-renderer-abstract/issues"
             },
-            "time": "2017-09-05 12:59:43"
+            "time": "2017-09-06 08:59:54"
         },
         {
             "name": "dhii/output-renderer-interface",
