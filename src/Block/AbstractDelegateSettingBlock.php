@@ -21,7 +21,7 @@ abstract class AbstractDelegateSettingBlock extends AbstractSettingBlock
      */
     protected function _renderSetting(SettingInterface $setting)
     {
-        $fieldRenderer = $this->_getFieldRenderer($setting);
+        $fieldRenderer = $this->_getFieldRendererFor($setting);
         $output        = $this->_renderElement($setting, $fieldRenderer);
 
         return $output;
@@ -36,7 +36,7 @@ abstract class AbstractDelegateSettingBlock extends AbstractSettingBlock
      *
      * @return ContextRendererInterface The field renderer for the given setting.
      */
-    abstract protected function _getFieldRenderer(SettingInterface $setting);
+    abstract protected function _getFieldRendererFor(SettingInterface $setting);
 
     /**
      * Renders the full settings element using a given field renderer.
