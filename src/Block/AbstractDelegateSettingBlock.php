@@ -3,11 +3,12 @@
 namespace RebelCode\WordPress\Admin\Settings\Block;
 
 use Dhii\Output\ContextRendererInterface;
+use Dhii\Output\RendererInterface;
 use Dhii\Util\String\StringableInterface as Stringable;
 use RebelCode\WordPress\Admin\Settings\SettingInterface;
 
 /**
- * Abstract functionality for blocks that render a setting by delegating to a renderer.
+ * Abstract functionality for blocks that render a setting's field by delegating to a renderer.
  *
  * @since [*next-version*]
  */
@@ -20,20 +21,35 @@ abstract class AbstractDelegateSettingBlock extends AbstractSettingBlock
      */
     protected function _renderSetting(SettingInterface $setting)
     {
-        $renderer = $this->_getRendererForSetting($setting);
-        $output   = $renderer->render($setting);
+        $fieldRenderer = $this->_getFieldRenderer($setting);
+        $output        = $this->_renderElement($setting, $fieldRenderer);
 
         return $output;
     }
 
     /**
-     * Retrieves the renderer for a setting.
+     * Retrieves the field renderer for a setting.
      *
      * @since [*next-version*]
      *
-     * @param SettingInterface $setting The setting to retrieve a renderer for.
+     * @param SettingInterface $setting The setting to retrieve a field renderer for.
      *
-     * @return ContextRendererInterface The renderer for the given setting.
+     * @return ContextRendererInterface The field renderer for the given setting.
      */
-    abstract protected function _getRendererForSetting(SettingInterface $setting);
+    abstract protected function _getFieldRenderer(SettingInterface $setting);
+
+    /**
+     * Renders the full settings element using a given field renderer.
+     *
+     * @since [*next-version*]
+     *
+     * @param SettingInterface         $setting       The setting to retrieve a field renderer for.
+     * @param ContextRendererInterface $fieldRenderer The renderer that can render the field.
+     *
+     * @return string|Stringable The render output.
+     */
+    abstract protected function _renderElement(
+        SettingInterface $setting,
+        ContextRendererInterface $fieldRenderer
+    );
 }

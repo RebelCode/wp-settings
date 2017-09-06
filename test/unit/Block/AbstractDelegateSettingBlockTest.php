@@ -2,6 +2,7 @@
 
 namespace RebelCode\WordPress\Admin\Settings\Block\UnitTest;
 
+use Dhii\Output\ContextRendererInterface;
 use Dhii\Output\RendererInterface;
 use RebelCode\WordPress\Admin\Settings\Block\AbstractDelegateSettingBlock;
 use RebelCode\WordPress\Admin\Settings\SettingInterface;
@@ -32,7 +33,8 @@ class AbstractDelegateSettingBlockTest extends TestCase
     {
         $mock = $this->mock(static::TEST_SUBJECT_CLASSNAME)
                      ->_getSetting()
-                     ->_getRendererForSetting()
+                     ->_renderElement()
+                     ->_getFieldRenderer()
                      ->new();
 
         return $mock;
@@ -65,11 +67,11 @@ class AbstractDelegateSettingBlockTest extends TestCase
      *
      * @param string $output The render output of the renderer.
      *
-     * @return RendererInterface The created renderer.
+     * @return ContextRendererInterface The created renderer.
      */
-    public function createRenderer($output = '')
+    public function createContextRenderer($output = '')
     {
-        $mock = $this->mock('Dhii\Output\RendererInterface')
+        $mock = $this->mock('Dhii\Output\ContextRendererInterface')
                      ->render($output);
 
         return $mock->new();
@@ -96,25 +98,28 @@ class AbstractDelegateSettingBlockTest extends TestCase
      *
      * @since [*next-version*]
      */
-    public function testRender()
+    public function testRenderSetting()
     {
         $subject = $this->getMockForAbstractClass(static::TEST_SUBJECT_CLASSNAME);
         $reflect = $this->reflect($subject);
 
-        $subject->expects($this->once())
-                ->method('_getSetting')
-                ->willReturn($setting = $this->createSetting());
+        $setting  = $this->createSetting();
+        $renderer = $this->createContextRenderer();
 
         $subject->expects($this->once())
-                ->method('_getRendererForSetting')
+                ->method('_getFieldRenderer')
                 ->with($setting)
-                ->willReturn($renderer = $this->createRenderer());
+                ->willReturn($renderer);
 
-        $reflect->_render();
+        $subject->expects($this->once())
+                ->method('_renderElement')
+                ->with($setting, $renderer);
+
+        $reflect->_renderSetting($setting);
     }
 
     /**
-     * Tests the render method to ensure that the output is equivalent to the output of the delegate renderer.
+     * Tests the render method to ensure that the output is equivalent to that of the abstract _renderElement() method.
      *
      * @since [*next-version*]
      */
@@ -124,9 +129,21 @@ class AbstractDelegateSettingBlockTest extends TestCase
         $reflect = $this->reflect($subject);
         $output  = uniqid('output-');
 
-        $subject->method('_getSetting')->willReturn($setting = $this->createSetting());
-        $subject->method('_getRendererForSetting')->willReturn($renderer = $this->createRenderer($output));
+        $setting  = $this->createSetting();
+        $renderer = $this->createContextRenderer();
 
-        $this->assertEquals($output, $reflect->_render(), 'Render output does not match expected output.');
+        $subject->expects($this->once())
+                ->method('_getFieldRenderer')
+                ->with($setting)
+                ->willReturn($renderer);
+
+        $subject->method('_renderElement')
+                ->willReturn($output);
+
+        $this->assertEquals(
+            $output,
+            $reflect->_renderSetting($setting),
+            'Render output does not match expected output.'
+        );
     }
 }
